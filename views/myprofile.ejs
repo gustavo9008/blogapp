@@ -1,0 +1,149 @@
+<%- include("partials/header") %>
+
+<main class="Psm:m-0 profile-container Psm:mt-3 mt-3">
+  <h1>my post route</h1>
+  
+    
+<header class="mb-2 Psm:w-full mx-auto">
+  <figure class="md:flex flex-grow bg-gray-800 Psm:border-l-0 Psm:border-r-0 border border-gray-600 Psm:rounded-none rounded-md p-8 md:p-0 overflow-hidden relative">
+    <a href="/blogs/profile/settings" class=" font-medium rounded text-black bg-indigo-500 hover:bg-indigo-600 p-2  tracking-tighter absolute right-1 top-1 Psm:right-0 Psm:top-0" aria-label="Edit profile button">Edit Profile</a>
+    <div class="flex Psm:flex-col w-full">
+      <%if(!currentProfile.image[0]) {%>
+        <span class="profile-circle-avatar w-32 h-32 md:w-48 md:h-auto md:rounded-none rounded-full Psm:mx-auto object-cover generic-circle"></span>
+      <%}else {%>
+          <img class="profile-circle-avatar w-32 h-32 md:w-48 md:h-auto md:rounded-none rounded-full Psm:mx-auto object-cover" src="<%= currentProfile.image[0].url %>" alt="" width="384" height="512">
+      <%}%>
+      
+
+    <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
+      
+      <figcaption class="font-medium">
+        <div class="">
+          <%= user.name %>
+        </div>
+        <div class="text-gray-400">
+          Skills: <%= profile.skills %>
+        </div>
+        <div class="text-gray-400">
+          <%= currentUser.email %>
+        </div>
+        
+          <p class="text-lg font-semibold">
+            <%= profile.about %>
+          </p>
+          <aside class="mt-2 flex justify-around text-sm text-gray-400">
+            <span><i class="fas fa-map-marker-alt profile-card-loc_joined"></i>Location: <%= profile.location %></span>
+          <span><i class="fas fa-birthday-cake profile-card-loc_joined"></i>Joined on <%= profile.createdAt.toDateString() %></span>
+          </aside>
+          <footer class="flex justify-around w-60 m-auto text-xl mt-4">
+            <% if(profile.links.personalWebsite){ %>
+              <a href="<%= profile.links.personalWebsite %>" target="_blank" title="Personal Website" rel="noopener noreferrer"><i class="fas fa-link"></i></a>
+            <%}%>
+            <% if(profile.links.instagram){ %>
+              <a href="<%= profile.links.instagram %>" target="_blank" title="Instagram" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            <%}%>
+            <% if(profile.links.twitter){ %>
+              <a href="<%= profile.links.twitter %>" target="_blank" title="twitter link" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+            <%}%>
+            <% if(profile.links.youtube){ %>
+              <a href="<%= profile.links.youtube %>" target="_blank" title="youtube link" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+            <%}%>
+            <% if(profile.links.linkedin){ %>
+              <a href="<%= profile.links.instagram %>" target="_blank" title="linkedin link" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+            <%}%>
+            
+            
+            
+            
+          </footer>
+          
+        
+      </figcaption>
+    </div>
+    </div>
+    
+  </figure>
+    
+</header>
+
+<section class="flex flex-row flex-wrap mx-auto justify-evenly gap-4">
+  <% if(profile.blogs.length <= 0 && profile.comments.length <= 0 && profile.readingList.length <= 0){ %>
+    <p>nothing to see here</p>
+    <%}else{%>
+  <% if(profile.blogs.length > 0){ %>
+        <article class="Psm:w-screen profile-post-comment-containers flex flex-col flex-wrap self-start flex-auto ">
+          <% profile.blogs.forEach( (blog) => { %>
+
+            <div class="Psm:rounded-none profile-article-cards bg-gray-800 border border-gray-700 Psm:border-l-0 Psm:border-r-0">
+                
+                <h2><%=blog.title%></h2>
+                
+                <span><%= blog.created.toDateString() %></span>
+                <a class="text-blue-300" href="/blogs/<%= blog._id %>">Read</a>
+            </div>
+          
+        <% }) %>
+        </article>
+        <%}%>
+  
+  <% if(profile.comments.length > 0){ %>
+        <article class="Psm:w-screen profile-post-comment-containers flex flex-col flex-wrap Psm:border-l-0 Psm:border-r-0 border border-gray-500 Psm:rounded-none rounded-md overflow-hidden flex-auto self-start mb-4">
+          <h3 class="p-2 pl-6">Recent Comments</h3>
+          <% profile.comments.forEach( (comments) => { %>
+            
+                  <a class="w-full bg-gray-800 border-b border-gray-900 overflow-hidden p-4" href="<%= comments.url.address %>">
+                    <h4 class="text-lg font-medium"><%=comments.text%></h4>
+                    <span class="text-sm text-gray-400"><%= comments.url.title %></span></a>
+                  
+        <% }) %>
+
+        </article>
+  <%}%>
+
+  <% if(profile.readingList.length > 0){ %>
+      <article class="Psm:w-screen profile-post-comment-containers flex flex-col flex-wrap Psm:border-l-0 Psm:border-r-0 flex-auto border border-gray-500 Psm:rounded-none rounded-md overflow-hidden">
+  <h3 class="p-2 pl-6">Reading List</h3>
+    <% profile.readingList.forEach( (list) => { %>
+        <div class="flex">
+        <a class="w-full bg-gray-800 hover:bg-gray-600 border-b border-gray-900 overflow-hidden p-4" href="<%= list.url %>"> <h4> <%= list.title %> </h4></a>
+        <button id="delete-article-list" data-href="<%= list.blog_id %>" class="delete-article-list bg-gray-700 block w-14 p-4 font-medium border-b border-gray-900 text-gray-300 hover:bg-gray-600" aria-label="Delete post from reading list">
+        <i class="far fa-trash-alt"></i>
+        </button>
+      </div>
+      
+    <% }) %>
+  
+    </article>
+  <%}%>
+
+  <%}%>
+</section>
+
+  
+</main>
+
+<script>
+  const deleteArticleList = document.querySelectorAll(".delete-article-list");
+  for(let i = 0; i < deleteArticleList.length; i++){
+    deleteArticleList[i].addEventListener('click', function(){
+      let articleDelete = this.getAttribute('data-href');
+      let parent = this.parentNode;
+    axios.put("/blogs/" + articleDelete +"/reading", {
+      "blog_id": articleDelete
+    }).then(function(response) {
+            parent.remove();
+            let successMessage = "You have successfully removed bookmark";
+            displaySuccess(successMessage);
+          
+        }).catch(function (error) {
+          let errorMessage = "oh no something went wrong, please try again later 😦";
+          displayError(errorMessage);
+        })
+    })
+  }
+</script>
+
+
+
+
+<%- include("partials/footer") %>

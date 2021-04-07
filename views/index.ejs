@@ -1,0 +1,39 @@
+<%- include("partials/header") %>
+
+
+<main class="Psm:m-0 main-container Psm:mt-3 mt-3">
+
+    <header class="mb-2 px-6 py-2">
+        <h1 class="text-xl font-boldhover:text-gray-700 dark:hover:text-gray-300">Posts</h1>
+    </header>
+<% blogs.forEach( (blog) => { %>
+    <article id="" class="link-card homepage-card card Psm:mb-2 Psm:w-full Psm:border-l-0 Psm:border-r-0 Psm:border-t Psm:border-b Psm:border-indigo-900 Psm:shadow-none Psm:rounded-none bg-gray-800">
+        <figure class="aspect-w-4 aspect-h-2 mb-2">
+                <img class="object-cover" <%- `src="${blog.image[0] ? blog.image[0].url : blog.imageUrl}"`%> alt="">
+        </figure>
+        <section class="px-4 py-2">
+            <div class="user-container mb-2">
+          
+            <% if(!blog.profile.image) {%>
+                <div class="user-profile-image"><span class="h-10 w-10 rounded-full" <%- `style="display: block; background-color: ${blog.profile.genericPic[0]}; background-image: linear-gradient(225deg, ${blog.profile.genericPic[0]} 0%, ${blog.profile.genericPic[1]} 50%, ${blog.profile.genericPic[2]} 100%)"`%>></span></div>
+                <%} else {%>
+                    <span class="user-profile-image"> <img loading=lazy class="h-10 w-10 rounded-full" src="<%= blog.profile.image %>" alt=""></span>
+                    <%}%>
+             
+             <div class="author-container">               
+                <span class="text-gray-300 text-sm"><a class="clickable" href="/blogs/userprofile/<%= blog.profile.id %>"> <%= blog.author.username %></a></span>
+                <span class="text-gray-400 text-xs"><%= blog.created.toDateString() %></span>
+             </div>
+             
+        </div>
+        <a id="" class="article-link text-xl my-0 ml-12 Psm:ml-0 text-gray-300 tracking-wide" href="/blogs/<%= blog._id %>" aria-label="article title"><%=blog.title%></a>
+    </section>
+    </article>
+<% }) %>
+       
+        
+</main>
+<script src="/scripts/homeIndex.js"></script>
+
+
+<%- include("partials/footer") %>

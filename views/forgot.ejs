@@ -1,0 +1,39 @@
+<%- include("partials/header") %>
+<section class="forgot-form">
+<div class="login-form-card w-full flex justify-center items-center">
+    <!-- ===== modal conatainer ===== -->
+    <div class="bg-gray-900 border-2 border-gray-500 rounded modal">
+      <!-- ===== modal header ===== -->
+      <div class="border-b px-4 py-2 flex justify-between items-center">
+        <div>
+          <span class="text-sm">Remembered your password?</span><a href="/blogs/login" class="text-sm text-blue-300 hover:text-blue-400 font-semibold">Log in</a>
+        </div>
+      </div>
+      <!-- ===== modal body ===== -->
+      <div class="p-3">
+        <!-- ===== Form to login ===== -->
+
+        <form method="POST" action="/forgotpassword">
+          <h2 class=" text-2xl font-bold">Enter Email</h2>
+
+          <div class="mb-4 mt-6">
+            
+            <input class="text-sm appearance-none rounded w-full py-2 px-3 text-gray-700 bg-gray-200 leading-tight focus:outline-none focus:shadow-outline h-10" id="email" type="email" name="email" placeholder="enter your email here"/>
+          </div>
+          <div class="flex w-full mt-8">
+            <button class="w-full bg-gray-800 hover:bg-grey-900 text-white text-sm py-2 px-4 font-semibold rounded focus:outline-none focus:shadow-outline h-10"type="submit">
+              Continue
+            </button>
+          </div>
+        </form>
+
+
+      </div>
+
+    </div>
+    </div>
+
+</section>
+
+
+<%- include("partials/footer") %>

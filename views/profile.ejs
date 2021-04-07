@@ -1,0 +1,100 @@
+<%- include("partials/header") %>
+
+<main class="Psm:m-0 profile-container Psm:mt-3 mt-3">
+    <header class="mb-2 Psm:w-full mx-auto">
+        <figure class="md:flex flex-grow bg-gray-800 border border-gray-600 Psm:border-l-0 Psm:border-r-0 Psm:rounded-none rounded-md p-8 md:p-0 overflow-hidden">
+          <div class="flex Psm:flex-col w-full">
+            <%if(!profile.image[0]) {%>
+              <span class="profile-circle-avatar w-32 h-32 md:w-48 md:h-auto md:rounded-none rounded-full Psm:mx-auto object-cover" <%- `style="background-color: ${profile.genericPic[0]};
+                background-image: linear-gradient(225deg, ${profile.genericPic[0]} 0%, ${profile.genericPic[1]} 50%, ${profile.genericPic[2]} 100%);"`%>></span>
+            <%}else {%>
+                <img class="profile-circle-avatar w-32 h-32 md:w-48 md:h-auto md:rounded-none rounded-full Psm:mx-auto object-cover" src="<%= profile.image[0].url %>" alt="" width="384" height="512">
+            <%}%>
+          <div class="pt-6 md:p-8 text-center md:text-left space-y-4">
+            
+            <figcaption class="font-medium">
+              <div class="">
+                <%= profile.name.name %>
+              </div>
+              <div class="text-gray-400">
+                Skills: <%= profile.skills %>
+              </div>
+              <div class="text-gray-400">
+                <%= //user.email %>
+              </div>
+              
+                <p class="text-lg font-semibold">
+                  <%= profile.about%>
+                </p>
+                <aside class="mt-2 flex justify-around text-sm text-gray-400">
+                  <span><i class="fas fa-map-marker-alt profile-card-loc_joined"></i>Location: <%= profile.location %></span>
+                <span><i class="fas fa-birthday-cake profile-card-loc_joined"></i>Joined on <%= profile.createdAt.toDateString() %></span>
+                </aside>
+                <footer class="flex justify-around w-60 m-auto text-xl mt-4">
+                  <% if(profile.links.personalWebsite){ %>
+                    <a href="<%= profile.links.personalWebsite %>" target="_blank" title="Personal Website" rel="noopener noreferrer"><i class="fas fa-link"></i></a>
+                  <%}%>
+                  <% if(profile.links.instagram){ %>
+                    <a href="<%= profile.links.instagram %>" target="_blank" title="Instagram" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                  <%}%>
+                  <% if(profile.links.twitter){ %>
+                    <a href="<%= profile.links.twitter %>" target="_blank" title="twitter link" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                  <%}%>
+                  <% if(profile.links.youtube){ %>
+                    <a href="<%= profile.links.youtube %>" target="_blank" title="youtube link" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                  <%}%>
+                  <% if(profile.links.linkedin){ %>
+                    <a href="<%= profile.links.instagram %>" target="_blank" title="linkedin link" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+                  <%}%>
+                  
+                  
+                  
+                  
+                </footer>
+                
+              
+            </figcaption>
+          </div>
+          </div>
+          
+        </figure>
+          
+      </header>
+      
+      <section class="flex flex-row flex-wrap mx-auto justify-evenly gap-4">
+        <% if(profile.blogs.length > 0){ %>
+        <article class="Psm:w-screen profile-post-comment-containers flex flex-col flex-wrap self-start flex-auto ">
+        <% profile.blogs.forEach( (blog) => { %>
+      
+          <div class="Psm:rounded-none profile-article-cards bg-gray-800 border border-gray-700 Psm:border-l-0 Psm:border-r-0">
+              
+              <h2 class="text-lg font-medium"><%=blog.title%></h2>
+              
+              <span class="text-sm text-gray-400"><%= blog.created.toDateString() %></span>
+              <a class="text-blue-300" href="/blogs/<%= blog._id %>">Read Article</a>
+          </div>
+        
+      <% }) %>
+      </article>
+      <%}%>
+      <% if(profile.comments.length > 0){ %>
+      <article class="Psm:w-screen profile-post-comment-containers flex flex-col flex-wrap border border-gray-500 Psm:border-l-0 Psm:border-r-0 Psm:rounded-none rounded-md overflow-hidden flex-auto self-start mb-4">
+        <h3 class="p-2 pl-6">Recent Comments</h3>
+        <% profile.comments.forEach( (comments) => { %>
+          
+                <a class="w-full bg-gray-800 border-b border-gray-900 overflow-hidden p-4" href="<%= comments.url.address %>">
+                  <h4 class="text-lg font-medium"><%=comments.text%></h4>
+                  <span class="text-sm text-gray-400"><%= comments.url.title %></span></a>
+                
+      <% }) %>
+      
+      </article>
+      
+      <%}%>
+      
+      
+      
+      </section>
+</main>
+
+  <%- include("partials/footer") %>

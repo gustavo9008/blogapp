@@ -1,0 +1,48 @@
+<%- include("partials/header") %>
+
+<main class="register-back-image">
+
+
+  <div class="login-form-card w-full flex justify-center items-center">
+    <!-- ===== modal conatainer ===== -->
+    <div class="bg-gray-900 border-2 border-gray-500 rounded register-form-container">
+      <!-- ===== modal header ===== -->
+      <div class="border-b px-4 py-2 flex justify-between items-center">
+        <div class="text-center">
+          <span class="text-sm">
+            <i class="fas fa-laptop-code"></i> <span class="tracking-tighter">Dev.me</span>
+          </span>
+
+        </div>
+      </div>
+      <!-- ===== modal body ===== -->
+      <div class="p-4">
+        <!-- ===== Form to login ===== -->
+        <h3 class="text-3xl pb-8">Provide Profile Info</h3>
+        <form action="/blogs/register-profile" method="POST">
+          <div class="fields">
+            <div class="field">
+              <label>Tell us about yourself</label>
+              <textarea id=""
+                class="py-2 px-3 bg-gray-300 focus:bg-gray-100 appearance-none rounded w-full text-sm text-gray-900 focus:outline-none border-gray-500 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                autocomplete="off" rows="3" id="comment" name="about" placeholder="Say something"></textarea>
+            </div>
+            <div class="field">
+              <label>Skills</label>
+              <input
+                class="bg-gray-300 focus:bg-gray-100 appearance-none rounded w-full py-2 px-3 text-gray-900 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10"
+                type="text" name="skills" placeholder="info">
+            </div>
+            <button
+              class="w-full bg-gray-800 hover:bg-grey-900 text-white text-sm py-2 px-4 font-semibold rounded focus:outline-none focus:shadow-outline h-10 mt-3">Create Profile</button>
+        </form>
+
+
+
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<%- include("partials/footer") %>

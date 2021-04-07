@@ -1,0 +1,272 @@
+<%- include("partials/header") %>
+
+    <main class="max-w-screen-md mx-auto">
+
+        <section class="settings-card mt-4 p-4">
+            <h4 class="headings-style">Edit Profile</h4>
+            <form id="edit-profile-form" action="/blogs/profile/settings/updateProfile?_method=PUT" method="POST">
+                <div class="fields divide-y divide-gray-500">
+                  <div class="mb-2">
+                    <div class="field">
+                    <label for="about" class="font-medium">Tell us about yourself</label>
+                    <input id="about" class="text-sm bg-gray-700 focus:bg-gray-900 appearance-none rounded w-full py-2 px-3 text-gray-300 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" type="text" name="about" value="<%= profile.about %>">
+                  </div>      
+                  <div class="field">
+                    <label for="skills" class="font-medium">Skills</label>
+                    <input id="skills" class="text-sm bg-gray-700 focus:bg-gray-900 appearance-none rounded w-full py-2 px-3 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" type="text" name="skills" value="<%= profile.skills %>">
+                  </div>
+                  <div class="field">
+                    <label for="location" class="font-medium">Location</label>
+                    <input id="location" class="text-sm bg-gray-700 focus:bg-gray-900 appearance-none rounded w-full py-2 px-3 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" type="text" name="location" value="<%= profile.location %>">
+                  </div>
+                  </div>
+                  
+                  <div class="field mt-2">
+                    <h4 class="pt-2">Links</h4>
+                    <div class="fields">
+                      <label for="personal-Website" class="font-medium">Personal Website</label>
+                      <input id="personal-Website" class="text-sm bg-gray-700 focus:bg-gray-900 appearance-none rounded w-full py-2 px-3 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" type="text" name="personal" placeholder="http://..." value="<%= profile.links.personalWebsite %>">
+                    </div>
+                    <div class="fields">
+                      <label for="instagram" class="font-medium">Instagram</label>
+                      <input id="instagram" class="text-sm bg-gray-700 focus:bg-gray-900 appearance-none rounded w-full py-2 px-3 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" type="text" name="instagram" placeholder="instagram.com/..." value="<%= profile.links.instagram %>">
+                    </div>
+                    <div class="fields">
+                      <label for="twitter" class="font-medium">Twitter</label>
+                      <input id="twitter" class="text-sm bg-gray-700 focus:bg-gray-900 appearance-none rounded w-full py-2 px-3 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" type="text" name="twitter" placeholder="twitter/..." value="<%= profile.links.twitter %>">
+                    </div>
+                    <div class="fields">
+                      <label for="youtube" class="font-medium">Youtube</label>
+                      <input id="youtube" class="text-sm bg-gray-700 focus:bg-gray-900 appearance-none rounded w-full py-2 px-3 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" type="text" name="youtube" placeholder="channels/..." value="<%= profile.links.youtube %>">
+                    </div>
+                    <div class="fields">
+                      <label for="linkedin" class="font-medium">Linkedin</label>
+                      <input id="linkedin" class="text-sm bg-gray-700 focus:bg-gray-900 appearance-none rounded w-full py-2 px-3 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" type="text" name="linkedin" value="<%= profile.links.linkedin %>">
+                    </div>
+                  </div>
+                  
+                </div>
+                
+                <button class="w-full bg-opacity-80 rounded hover:text-white bg-indigo-500 hover:bg-indigo-600 p-2 mr-1.5 h-10 mt-3" aria-roledescription="save profile button">Save Profile</button>
+            </form>
+        </section>
+        <section class="settings-card mt-4 p-4">
+            <h4 class="headings-style">Change Profile Picture/Color</h4>
+            <form id="edit-profile-pic-form" action="/blogs/profile/settings" method="POST" enctype="multipart/form-data">
+                  <div class="field flex justify-evenly Psm:flex-col Psm:justify-center">
+                    <div id="colorPic" class="w-64 h-80 generic-circle m-auto grid items-center rounded-md">
+                      <div id="colorPic-container" class="m-auto w-4/5 h-3/6 flex-col flex-wrap justify-center p-4 bg-gray-800 bg-opacity-70 rounded-md">
+                        <h3 class="font-medium antialiased text-center mb-4 mt-4">Change your profile color</h3>
+                      
+                       <div id="changeColor" class="font-medium antialiased rounded bg-gray-600 hover:bg-gray-700 p-2 tracking-tighter text-center">New Color</div>
+                      </div>
+                      
+                    </div>
+                    <h4 class="m-auto">or</h4>
+                    <div class="w-64 m-auto">
+
+                      <%if(profile.image[0]){%>
+                          <picture class="block overflow-hidden mb-2">
+                            <img id="oldFilenameImage" data-filename="<%= profile.image[0].filename %>" class="object-cover" src="<%= profile.image[0].url %>" alt="">
+                          </picture>
+                      <%}%>
+                    
+                    <div>
+                      <label for="imagePost" class="rounded text-white bg-gray-600 hover:bg-gray-700 p-2">
+                        <i class="far fa-image text-xl relative top-0.5"></i> Custom Upload
+                    </label>
+                      <input onchange="loadFile(event)" id="imagePost" type="file" name="image">
+                <picture class="block overflow-hidden mt-4">
+                    <img class="object-cover" id="output"/>
+                </picture>
+                    </div>
+                        </div>
+                      
+                    
+                  </div>
+            </form>
+            <button id="edit-pic-btn" data-action="/blogs/profile/settings" class="w-full mt-3 inline-flex items-center justify-center bg-opacity-80 rounded hover:text-white bg-indigo-500 hover:bg-indigo-600  transition ease-in-out duration-150 p-2 mr-1.5 h-10" aria-roledescription="save profile picture button">
+              <svg id="svgSpin" class="-ml-1 mr-3 h-5 w-5 text-white" viewBox="0 0 24 24" style="display: none;">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span id="postingText" style="display: none;">
+                Saving
+              </span>
+              
+            
+            <span id="postText">
+              Save Picture/Color
+            </span>
+            </button>
+        </section>
+        
+
+        <section class="settings-card mt-4 p-4">
+            <h4 class="headings-style">Edit User</h4>
+            <form action="/blogs/changeuser?_method=PUT" method="POST">
+                <div class="field">
+                  
+                  <div class="field">
+                    <label for="name" class="font-medium">Name</label>
+                    <input id="name" class="text-sm bg-gray-700 focus:bg-gray-900 appearance-none rounded w-full py-2 px-3 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" type="text" name="name" value="<%= user.name %>">
+                  </div>
+                  <div class="field">
+                    <label for="email" class="font-medium">Email</label>
+                    <input id="email" class="text-sm bg-gray-700 focus:bg-gray-900 appearance-none rounded w-full py-2 px-3 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" type="email" name="email" value="<%= user.email %>">
+                  </div>
+                  <div class="field">
+                    <label for="username" class="font-medium">Username</label>
+                    <input id="username" class="text-sm bg-gray-700 focus:bg-gray-900 appearance-none rounded w-full py-2 px-3 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" type="text" name="username" value="<%= user.username %>">
+                  </div>
+                </div>
+                <button class="w-full bg-opacity-80 rounded hover:text-white bg-indigo-500 hover:bg-indigo-600 p-2 mt-3 mr-1.5 h-10" type="submit" aria-roledescription="update user info">Update User</button>
+            </form>
+        </section>
+        <section class="settings-card mt-4 p-4">
+            <h4 class="headings-style">Edit Password</h4>
+            <form action="/blogs/changepassword" method="POST">
+                <div class="field">
+                  
+                  <div class="field">
+                    <label for="old-password" class="font-medium">Old Password</label>
+                    <input id="old-password" class="text-sm bg-gray-700 focus:bg-gray-900 appearance-none rounded w-full py-2 px-3 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" type="password" name="oldPassword" placeholder="Password">
+                  </div>
+                  <div class="field">
+                    <label for="new-password" class="font-medium">New Password</label>
+                    <input id="new-password" class="text-sm bg-gray-700 focus:bg-gray-900 appearance-none rounded w-full py-2 px-3 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" type="password" name="newPassword" placeholder="Password">
+                  </div>
+                </div>
+                <button class="w-full bg-opacity-80 rounded hover:text-white bg-indigo-500 hover:bg-indigo-600 p-2 mt-3 mr-1.5 h-10" type="submit" aria-label="save new password button">Save New Password</button>
+            </form>
+        </section>
+        <section class="settings-delete-card mt-4 p-4" aria-roledescription="delete account">
+            <h4 class="headings-style text-red-500">Danger Zone!!</h4>
+            <form action="/blogs/deleteaccount" method="POST">
+                <div class="field">
+                  
+                  <div class="field">
+                   <p class="">Delete Account</p>
+                   <ul>
+                     <li class="pb-2">Deleting your account will:</li>
+                     <li class="pl-4 pb-2">Delete all your post, Delete all your comments and it will delete your profile</li>
+                   </ul>
+                  </div>
+                  <div class="field">
+                    
+                      
+                    
+                  </div>
+                </div>
+            </form>
+            
+            <div x-data="{ open: false}" class="edit-comment-container">
+            
+              <div>
+                  <button @click="open = true" id="loginModal" class="rounded w-20 hover:text-white bg-red-700 hover:bg-red-800 p-2" aria-roledescription="pop-up delete button">Delete</button>              
+              </div>
+              <!-- ===== hidden modal ===== -->
+              <div id="" x-show="open" @click.away="open = false" x-ref="modal" x-transition:enter="transition ease-out duration-100" x-transiton:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" style="display: none;" class="h-screen w-full fixed left-0 top-0 flex justify-center items-center bg-black bg-opacity-50">
+                <!-- ===== modal conatainer ===== -->
+                <div class="bg-gray-900 border-2 border-gray-500 rounded modal">
+                  
+                  <!-- ===== modal body ===== -->
+                  <div class="p-3">
+                    <!-- ===== Form to login ===== -->
+                    <h2 class="text-center text-2xl font-bold mb-10">Are you sure you want to delete your account</h2>
+                    
+                    <div class="">
+                      
+                      <div class="flex justify-around">
+                        <button @click="open = false" class="rounded w-20 hover:text-white bg-green-600 hover:bg-green-700 p-2 font-semibold"aria-roledescription="cancel delete account">No</button>
+                        
+                          <button id="deleteButton" data-action="/deleteaccount" data-user="<%= user._id %>" data-profile="<%= profile._id %>" class="rounded font-medium hover:text-white text- bg-red-600 hover:bg-red-700 p-2 mr-1.5 tracking-wide" aria-roledescription="delete delete account button">Delete Account</button>
+                      
+                      </div>
+                    </div>
+      
+                  </div>
+      
+                </div>
+                </div>
+      
+                </div>
+        </section>
+        
+            
+    </main>
+    <div id="errorMessage"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.0.7/compressor.min.js"></script>
+    <script>
+      const editPicBtn = document.getElementById("edit-pic-btn");
+      const formPic = document.querySelector("#edit-profile-pic-form");
+      const oldFilename = document.querySelector("#oldFilenameImage");
+      const changeColorBtn = document.querySelector("#changeColor");
+      const colorCircle = document.querySelector("#colorPic");
+      const message = document.querySelector("#errorMessage");
+      const deleteBtn = document.querySelector("#deleteButton");
+      let newProfileImage;
+      let newColorpic;
+      const formData = new FormData(); 
+      deleteBtn.addEventListener('click', ()=> {
+        let method = "delete";
+        const url = deleteBtn.getAttribute("data-action");
+        const userAccount = deleteBtn.getAttribute("data-user");
+        const profile = deleteBtn.getAttribute("data-profile");
+        const accountDelete = {
+          user_id: userAccount,
+          user_profile: profile};
+        
+        sendData(method, url, accountDelete);
+      });//=====
+      editPicBtn.addEventListener('click', function (){
+        let method = "put";
+        let url = this.getAttribute("data-action");
+        if(formPic[0].files[0] === undefined){
+          if(!colorCircle.getAttribute("data-color")){
+            let err = "Nothing has change 😢"
+          displayError(err);
+          }else{
+            btnAnimate();
+            if(oldFilename){
+              const oldImage = oldFilename.getAttribute('data-filename');
+              formData.append('oldImage', oldImage)
+            }
+            formData.append('genericPic0', newColorpic[0]);    
+            formData.append('genericPic1', newColorpic[1]);    
+            formData.append('genericPic2', newColorpic[2]); 
+            
+            sendData(method, url ,formData);
+          }
+
+        }else{
+          btnAnimate();
+          newPic(method, url);
+
+        }
+  });
+ 
+  // axios send new compress picture 
+function newPic(method, url){
+        
+    // const formData = new FormData();  
+    let imageForm = formPic[0].files[0];
+          new Compressor(imageForm, {
+          quality:0.4,
+          success(result){
+            if(oldFilename){
+              const oldImage = oldFilename.getAttribute('data-filename');
+              formData.append('oldImage', oldImage)
+            }
+            newImage = result;
+            formData.append('file', newImage, newImage.name); 
+           sendData(method, url, formData);
+          }
+        });
+        }
+  
+    </script>
+    <script src="/scripts/changePicColor.js"></script>
+
+
+<%- include("partials/footer") %>

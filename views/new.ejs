@@ -1,0 +1,124 @@
+<%- include("partials/header") %>
+
+<main class="edit-card Psm:px-2">
+    <header>
+        <div class="text-gray-500">New Post</div>
+        
+    </header>
+    
+
+    <form id="create-form" class="" action="/blogs" method="POST" enctype="multipart/form-data">
+        
+        <div class="field">
+            <label>Title</label>
+            <input class="bg-gray-700 focus:bg-gray-900 appearance-none rounded w-full py-2 px-3 text-gray-300 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" type="text" name="title" placeholder="title" required>
+        </div>
+        <div class="field">
+            <label>Image</label>
+            <input class="bg-gray-700 focus:bg-gray-900 appearance-none rounded w-full py-2 px-3 text-gray-300 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" type="text" name="imageUrl" placeholder="image url">
+        </div>
+      
+        <div class="field mt-4 mb-4 flex flex-wrap">
+            
+          <label for="imagePost" class="self-start mr-32 rounded hover:text-white bg-gray-500 hover:bg-gray-600 p-2">
+            <i class="far fa-image text-xl relative top-0.5"></i> Custom Upload
+        </label>
+                <input onchange="loadFile(event)" id="imagePost" type="file" name="image">
+                <picture class="block overflow-hidden mt-4 w-1/2">
+                    <img class="object-cover" id="output"/>
+                </picture>
+        </div>
+            <textarea class="text-black" id="editor" name="body"></textarea>
+    </form>
+    <button id="postBtn" type="button" class="z-50 fixed bottom-7 right-4 inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md bg-indigo-500 hover:bg-indigo-600  transition ease-in-out duration-150">
+      
+        <svg id="svgSpin" class="-ml-1 mr-3 h-5 w-5 text-white" viewBox="0 0 24 24" style="display: none;">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span id="postingText" style="display: none;">
+          Posting
+        </span>
+        
+      
+      <span id="postText">
+        Post
+      </span>
+    </button>
+    
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.0.7/compressor.min.js"></script>
+<script>
+    const postBtn = document.querySelector("#postBtn");
+    const postForm = document.querySelector("#create-form");
+    const formData = new FormData();
+    const urlAction = "/blogs";
+    postBtn.addEventListener('click', () => {
+      
+      
+        if(!postForm[0].value){
+            let err = "Title is required 😢"
+            displayError(err);
+        } else {
+             if(postForm[2].files[0] === undefined){
+                if(!postForm[1].value){
+                    let err = "Please choose an image 😢"
+                    displayError(err);
+                 } else {
+                  btnAnimate()
+                  appendFormData();
+                  formData.append('imageUrl', postForm[1].value);
+                  sendData(urlAction, formData);
+                }
+            }else{
+              appendFormData();
+              newPic();
+             }
+        }
+       
+        
+        
+             
+    });
+    function appendFormData(){
+      formData.append('title', postForm[0].value);
+      formData.append('body', document.querySelector("#editor").value);  
+    }
+    function sendData(url, data){
+        axios.post(url, data).then(function(response) {
+          window.location.href = "/blogs/" + response.data;
+          
+        }).catch(function (error) {
+          let errorMessage = "oh no something went wrong, please try again later 😦";
+          displayError(errorMessage);
+        })
+      };
+
+      function newPic(){
+        btnAnimate();
+        let newImage = postForm[2].files[0];
+          new Compressor(newImage, {
+          quality:0.4,
+          success(result){
+            let compressImage = result;
+            formData.append('file', compressImage, compressImage.name);
+           sendData(urlAction ,formData);
+          }
+        });
+        };
+
+        let loadFile = function(event) {
+    let output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+  };
+
+  
+    
+</script>
+
+
+<%- include("partials/tiny.ejs") %>
+<%- include("partials/footer") %>

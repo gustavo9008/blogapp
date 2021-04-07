@@ -1,0 +1,53 @@
+<%- include("partials/header") %>
+
+
+   
+<section class="login-form">
+   <div class="login-form-card w-full flex justify-center items-center">
+      <!-- ===== modal conatainer ===== -->
+      <div class="bg-gray-900 border-2 border-gray-500 rounded modal">
+        <!-- ===== modal header ===== -->
+        <div class="border-b px-4 py-2 flex justify-between items-center">
+          <div>
+            <span class="text-sm">
+              Don't have an account?
+            </span>
+            <a href="/blogs/register" class="text-sm text-blue-300 hover:text-blue-400 font-semibold">
+              Sign up
+            </a>
+          </div>
+        </div>
+        <!-- ===== modal body ===== -->
+        <div class="p-3">
+          <!-- ===== Form to login ===== -->
+
+          <form method="POST" action="/blogs/login">
+            <h2 class=" text-2xl font-bold">Log in to continue</h2>
+
+            <div class="mb-4 mt-6">
+              <label class="block text-sm font-semibold mb-2">
+                Username
+              </label>
+              <input class="bg-gray-300 focus:bg-gray-100 appearance-none rounded w-full py-2 px-3 text-gray-900 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" id="username" type="text" name="username" placeholder="Your Username" required/>
+            </div>
+            <div class="mb-6 mt-6">
+              <label class="block text-sm font-semibold mb-2">Password</label>
+              <input class="bg-gray-300 focus:bg-gray-100 appearance-none rounded w-full py-2 px-3 text-gray-900 mb-1 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent h-10" id="password" type="password" name="password" placeholder="Your password" required/>
+              <p>Forgot password?<a class="text-sm text-blue-300 hover:text-blue-400 font-semibold" href="/forgotpassword"> Click here</a></p>
+            </div>
+            <div class="flex w-full mt-8">
+              <button class="w-full bg-gray-800 hover:bg-grey-900 text-white text-sm py-2 px-4 font-semibold rounded focus:outline-none focus:shadow-outline h-10"type="submit">
+                Continue
+              </button>
+            </div>
+          </form>
+          
+        </div>
+
+      </div>
+      </div>
+  
+
+
+</section>
+<%- include("partials/footer") %>

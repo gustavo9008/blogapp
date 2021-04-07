@@ -1,0 +1,96 @@
+<footer class="">
+
+<!-- Section 1 -->
+<section class="">
+    <div class="max-w-screen-xl px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8">
+        <p class="mt-8 text-base leading-6 text-center text-gray-400">
+            © 2021 Created by Gustavo Ayala. All rights reserved.
+        </p>
+    </div>
+</section>
+</footer>
+<div id="hideError" class="z-50 sticky bottom-3 Psm:max-w-full Psm:bottom-0 Psm:rounded-none max-w-sm w-full left-3/4 mr-16 bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden" style="display: none;"></div>
+
+    
+<script>
+    
+     if("<%= success %>"){
+        displaySuccess("<%= success %>")
+    }
+
+     if("<%= error %>"){
+        displayError("<%= error %>")
+    }
+    
+function displayError(err){
+    // document.querySelector("#localError").innerText = err;
+    document.querySelector("#hideError").innerHTML = `<div class="flex">
+      <div class="flex justify-center items-center w-12 bg-red-500">
+          <svg class="h-6 w-6 fill-current text-white" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z"/>
+          </svg>
+      </div>
+      
+      <div class="-mx-3 py-2 px-4">
+          <div class="mx-3">
+              <span class="text-red-500 dark:text-red-400 font-semibold">Error</span>
+              <p id="localError" class="text-gray-600 dark:text-gray-200 text-sm">${err}</p>
+          </div>
+      </div>
+    </div>`;
+    document.getElementById("hideError").style.display = "block";
+    
+    
+    localErrorAction();
+
+}
+function displaySuccess(succ){
+    // document.querySelector("#localError").innerText = err;
+    document.querySelector("#hideError").innerHTML = `<div class="flex">
+        <div class="flex justify-center items-center w-12 bg-green-500">
+            <svg class="h-6 w-6 fill-current text-white" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z"/>
+            </svg>
+        </div>
+    
+        <div class="-mx-3 py-2 px-4">
+            <div class="mx-3">
+                <span class="text-green-500 dark:text-green-400 font-semibold">Success</span>
+                <p class="text-gray-600 dark:text-gray-200 text-sm">${succ}</p>
+            </div>
+        </div>
+    </div>`;
+    document.getElementById("hideError").style.display = "block";
+    
+    
+    localSuccessAction();
+
+}
+function localErrorAction(){
+    setTimeout(function(){
+        document.getElementById("hideError").style.display = "none"; 
+        document.getElementById("hideError").innerHTML = ""; 
+
+ }, 4000)
+}
+function localSuccessAction(){
+    setTimeout(function(){
+        document.getElementById("hideError").style.display = "none"; 
+        document.getElementById("hideError").innerHTML = ""; 
+
+ }, 4000)
+}
+
+function btnAnimate(){
+            document.querySelector("#svgSpin").classList.add("animate-spin");
+            document.querySelector("#svgSpin").style.display = "inline-block";
+            document.querySelector("#postText").style.display = "none";
+            document.querySelector("#postingText").style.display = "inline";
+          };
+
+
+</script>
+
+
+</body>
+</html>
