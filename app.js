@@ -101,6 +101,6 @@ function isLoggedIn(req, res, next) {
 
 
 //  server setup
-app.listen(port, () => {
+app.listen(process.env.PORT, process.env.IP || port, () => {
     console.log("blogapp is running!");
   });
