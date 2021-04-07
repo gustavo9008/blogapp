@@ -20,10 +20,10 @@ const MongoStore = require('connect-mongo');
 const port = 3000;
 
 // express router config
-const commentRoutes = require("./routes/comments"),
-      indexRoutes =require("./routes/index"),
-      profileRoutes = require("./routes/profile"),
-      blogRoutes = require("./routes/blog");
+const commentRoutes = require("./routes/comments.min.js"),
+      indexRoutes =require("./routes/index.min.js"),
+      profileRoutes = require("./routes/profile.min.js"),
+      blogRoutes = require("./routes/blog.min.js");
 const dbUrl = process.env.MONGODB;
   mongoose
   .connect(dbUrl, {
@@ -101,6 +101,6 @@ function isLoggedIn(req, res, next) {
 
 
 //  server setup
-app.listen(process.env.PORT, process.env.IP || port, () => {
+app.listen(port, () => {
     console.log("blogapp is running!");
   });
