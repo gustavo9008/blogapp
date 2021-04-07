@@ -1,6 +1,9 @@
 {
   "name": "blogapp",
   "version": "1.0.0",
+  "engines": {
+    "node": "v14.15.5"
+  },
   "description": "blog website",
   "main": "app.js",
   "scripts": {
