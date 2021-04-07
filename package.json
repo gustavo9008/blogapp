@@ -4,6 +4,7 @@
   "description": "blog website",
   "main": "app.js",
   "scripts": {
+    "start":  "node app.js",
     "build:css": "postcss src/styles.css -o public/styles/styles.css",
     "build-css": "tailwindcss build src/styles.css -o public/styles/styles.css"
   },
