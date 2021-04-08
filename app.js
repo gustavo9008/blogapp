@@ -15,7 +15,7 @@ const   express = require("express"),
         Blog = require("./models/blog"),
         Comment = require("./models/comment"),
         flash =  require("connect-flash");
-
+const helmet = require('helmet');
 const MongoStore = require('connect-mongo'); 
 const port = 3000;
 
@@ -55,6 +55,11 @@ const sessionConfig = {
   }
 };
 app.use(session(sessionConfig));
+app.use(helmet(
+  {
+    contentSecurityPolicy: false
+  }
+));
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());

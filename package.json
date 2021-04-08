@@ -7,7 +7,7 @@
   "description": "blog website",
   "main": "app.js",
   "scripts": {
-    "start":  "node app.js",
+    "start": "node app.js",
     "build:css": "postcss src/styles.css -o public/styles/styles.css",
     "build-css": "tailwindcss build src/styles.css -o public/styles/styles.css"
   },
@@ -26,6 +26,7 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "helmet": "^4.4.1",
     "method-override": "^3.0.0",
     "mongoose": "^5.11.19",
     "multer": "^1.4.2",
